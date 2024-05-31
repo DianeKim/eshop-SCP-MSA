@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eshop-backend
+spec:
+  selector:
+    matchLabels:
+      app: eshop-backend
+  template:
+    metadata:
+      labels:
+        app: eshop-backend
+    spec:
+      containers:
+        - name: eshop-backend
+          image: << SCR Public Endpoint URI >>/eshop-backend:latest
+          ports:
+          - containerPort: 8090
+          env:
+            - name: URL_CARTSERVICE
+              value: http://eshop-cartservice:8091
+            - name: URL_PRODUCTSERVICE
+              value: http://eshop-productservice:8092
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://postgres:5432/eshop_db"
+            - name: SPRING_RABBITMQ_HOST
+              value: rabbitmq
+          resources:
+            requests:
+              cpu: 200m
+              memory: 384Mi
+            limits:
+              cpu: 1000m
+              memory: 1024Mi
+      imagePullSecrets:
+        - name: docker-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eshop-backend
+spec:
+  type: ClusterIP
+  selector:
+    app: eshop-backend
+  ports:
+  - port: 8090

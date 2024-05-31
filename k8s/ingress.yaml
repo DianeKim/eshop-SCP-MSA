@@ -1,0 +1,67 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: eshop-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: eshop-frontend
+            port:
+              number: 8080
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: eshop-backend
+            port:
+              number: 8090
+      - path: /static
+        pathType: Prefix
+        backend:
+          service:
+            name: eshop-backend
+            port:
+              number: 8090
+      - path: /api/carts
+        pathType: Prefix
+        backend:
+          service:
+            name: eshop-cartservice
+            port:
+              number: 8091
+      - path: /api/products
+        pathType: Prefix
+        backend:
+          service:
+            name: eshop-productservice
+            port:
+              number: 8092
+      - path: /api/recommends
+        pathType: Prefix
+        backend:
+          service:
+            name: eshop-recommendservice
+            port:
+              number: 8093
+      - path: /api/currencies
+        pathType: Prefix
+        backend:
+          service:
+            name: eshop-currencyservice
+            port:
+              number: 8094
+      - path: /api/ads
+        pathType: Prefix
+        backend:
+          service:
+            name: eshop-adservice
+            port:
+              number: 8095
