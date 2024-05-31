@@ -16,7 +16,7 @@ pipeline {
 
   environment {
     SCP_CREDS = credentials('scpCredentials')
-    DOCKER_REGISTRY = "<< SCR Private Endpoint URI >>"
+    DOCKER_REGISTRY = "eshop-fpfmzawl.scr.kr-west.scp-in.com"
   }
   stages {
     stage('Build with Kaniko') {
