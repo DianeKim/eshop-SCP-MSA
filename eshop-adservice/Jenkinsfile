@@ -20,7 +20,7 @@ pipeline {
   }
   environment {
     SCP_CREDS = credentials('scpCredentials')
-    DOCKER_REGISTRY = "<< SCR Private Endpoint URI >>"
+    DOCKER_REGISTRY = "eshop-fpfmzawl.scr.kr-west.samsungsdscloud.com"
   }
   stages {
     stage('build and push docker image') {
